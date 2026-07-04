@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    @apply bg-ink-950 text-slate-200 font-body antialiased;
+    background-image:
+      radial-gradient(60rem 30rem at 85% -5%, rgba(0, 212, 255, 0.08), transparent 60%),
+      radial-gradient(50rem 25rem at -10% 20%, rgba(0, 255, 179, 0.06), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-white tracking-tight;
+  }
+
+  ::selection {
+    background: rgba(0, 212, 255, 0.3);
+    color: #fff;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #00d4ff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0f1e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1c2a47;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00d4ff55;
+  }
+}
+
+@layer components {
+  .section-eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.25em] text-cyan;
+  }
+
+  .container-px {
+    @apply px-6 sm:px-8 lg:px-12;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cyan px-6 py-3 font-display text-sm font-semibold text-ink-950 transition-all duration-200 hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-mint/40 bg-mint/5 px-6 py-3 font-display text-sm font-semibold text-mint transition-all duration-200 hover:bg-mint/10 hover:-translate-y-0.5 hover:shadow-glow-mint active:translate-y-0;
+  }
+
+  .card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+  }
+
+  .tag {
+    @apply inline-flex items-center rounded-md border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[11px] text-slate-300;
+  }
+}
