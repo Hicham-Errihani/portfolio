@@ -3,7 +3,7 @@ import ProjectCard from './ProjectCard'
 
 const PAGE_SIZE = 6
 
-export default function ProjectsGrid({ projects }) {
+export default function ProjectsGrid({ projects, onSelect }) {
   const [activeCategory, setActiveCategory] = useState('Tous')
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
@@ -54,7 +54,7 @@ export default function ProjectsGrid({ projects }) {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard key={project.id} project={project} onSelect={onSelect} />
         ))}
       </div>
 
