@@ -28,8 +28,6 @@ export const about = {
   ],
 }
 
-// Medallion architecture stage metadata — reused by the PipelineDiagram
-// signature component across the Hero, nav indicator, and case study.
 export const medallion = [
   { key: 'bronze', label: 'Bronze', desc: 'Ingestion brute', color: '#B8794C' },
   { key: 'silver', label: 'Silver', desc: 'Nettoyage & jointures', color: '#B9C2CC' },
@@ -38,77 +36,60 @@ export const medallion = [
 
 export const flagshipProject = {
   eyebrow: 'Étude de cas',
-  name: 'Gender Sales Dashboard',
-  tagline: 'Un pipeline Azure complet, de la donnée brute au dashboard exécutif.',
+  name: 'Power BI — Sales Customer Product Analysis',
+  tagline: 'Dashboard exécutif complet sur AdventureWorks : du schéma en étoile SQL Server aux mesures DAX et au suivi budgétaire.',
   problem:
-    "Une direction commerciale voulait suivre ses ventes par segment démographique en quasi temps réel, mais ses données arrivaient de trois sources hétérogènes (POS, CRM, fichiers plats), sans historisation ni contrôle d'accès. Chaque rapport était refait à la main, dans Excel, chaque mois.",
+    "AdventureWorks, distributeur en ligne de vélos et équipements, ne disposait d'aucun reporting centralisé sur ses ventes 2016-2017. La direction commerciale (Head of Sales) avait besoin d'une vue d'ensemble par client, produit et ville, avec suivi du budget ; les commerciaux (Sales Rep) avaient besoin d'analyses détaillées par client et par produit, filtrables dynamiquement par année, mois et attributs produit.",
   stack: [
-    { name: 'Azure Data Factory', role: 'Orchestration & ingestion' },
-    { name: 'Azure Databricks', role: 'Transformation Spark (PySpark)' },
-    { name: 'ADLS Gen2', role: 'Lac de données (Bronze/Silver/Gold)' },
-    { name: 'Azure Key Vault', role: 'Secrets & identités managées' },
-    { name: 'Unity Catalog', role: 'Gouvernance & lignage des données' },
-    { name: 'Synapse Analytics', role: 'Requêtage SQL sur le lac' },
-    { name: 'Power BI', role: 'Restitution & pilotage' },
+    { name: 'Power BI Desktop', role: 'Modélisation & rapports multi-pages' },
+    { name: 'DAX', role: 'Mesures métier & indicateurs' },
+    { name: 'SQL Server / T-SQL', role: 'Vues métier sur AdventureWorksDW2019' },
+    { name: 'Power Query (M)', role: 'Import, nettoyage & transformation' },
+    { name: 'Star Schema', role: 'Modélisation dimensionnelle manuelle' },
+    { name: 'Power BI Service', role: 'Publication & accès web en lecture seule' },
   ],
   architecture: {
-    bronze: 'Ingestion brute des 3 sources via ADF, horodatée et versionnée dans ADLS Gen2.',
-    silver: 'Nettoyage, dédoublonnage et jointures PySpark dans Databricks ; schéma imposé.',
-    gold: 'Agrégats métier (CA par segment, tendance, saisonnalité) exposés à Synapse et Power BI.',
+    bronze: "Exploration (EDA) de l'entrepôt AdventureWorksDW2019 pour identifier 7 tables sources (DimDate, DimCustomer, DimGeography, DimProduct, DimProductCategory, DimProductSubcategory, FactInternetSales), puis création de 4 vues SQL (vw_date, vw_customer, vw_product, vw_internet_sales) qui encapsulent la logique métier et découplent Power BI de la structure interne de la base.",
+    silver: "Import des 4 vues dans Power Query sous les noms Dim_Customer, Dim_Product, Dim_Date et Fact_Internet_Sales, plus import du fichier Budget.xlsx en tant que Fact_Budget. Nettoyage : correction des types, des en-têtes de colonnes.",
+    gold: "Construction manuelle d'un modèle en étoile (les tables importées ne sont pas liées automatiquement) : Fact_Internet_Sales et Fact_Budget reliées aux dimensions Dim_Customer, Dim_Product et Dim_Date. Trois rapports publiés sur Power BI Service.",
   },
   challenges: [
     {
-      title: 'Authentification SQL en Mixed Mode',
+      title: 'Filtrage temporel sur un dataset restreint',
       detail:
-        "Synapse refusait les connexions Power BI en mode Azure AD seul sur certains postes clients. Résolu en configurant l'authentification SQL Mixed Mode côté serveur, avec rotation des secrets via Key Vault plutôt que des mots de passe en dur.",
+        "Les données ne couvrent que 2016 et 2017. La vue vw_internet_sales filtre explicitement ces deux années (WHERE LEFT(OrderDateKey, 4) IN (2017, 2016)) pour éviter d'exposer des données hors périmètre et fausser les indicateurs de croissance.",
     },
     {
-      title: 'RBAC multi-identités désaligné',
+      title: 'Découplage via des vues SQL plutôt que des requêtes directes',
       detail:
-        "Trois identités managées (ADF, Databricks, Synapse) avaient des permissions incohérentes sur ADLS Gen2, provoquant des échecs silencieux en Silver. Audit complet des rôles IAM et alignement sur le principe du moindre privilège, par couche.",
+        "Plutôt que d'interroger directement les tables de l'entrepôt depuis Power BI, j'ai créé 4 vues SQL Server qui encapsulent la logique métier (jointures, renommages, décodage des codes M/F, S/M). Si la logique de sélection change, seule la vue est modifiée — aucun changement requis côté Power BI.",
     },
     {
-      title: 'Configuration Unity Catalog & external location',
+      title: 'Modélisation en étoile manuelle',
       detail:
-        "La liaison entre le workspace Databricks et le stockage externe échouait au niveau des credentials de storage. Reconfiguration des external locations et storage credentials pour rendre le lignage de données traçable de bout en bout.",
+        "Les vues et la table budget importées ne sont pas liées automatiquement par Power BI. J'ai construit manuellement les relations dans le modèle de données pour former un schéma en étoile propre (Dim_Customer, Dim_Product, Dim_Date autour de Fact_Internet_Sales et Fact_Budget).",
     },
   ],
   result:
-    "Rapport mensuel manuel remplacé par un dashboard Power BI rafraîchi automatiquement, avec traçabilité complète de la donnée (source → Bronze → Silver → Gold) et gouvernance via Unity Catalog.",
+    "Trois rapports interactifs publiés (Executive Summary, Customer Analysis, Product Analysis) remplaçant l'absence de reporting centralisé. KPI Sales vs Budget : $22,19M de ventes réalisées contre $30,3M budgétés (écart de -26,75%), avec croissance YoY de 179,9% et détail par ville, client et produit.",
   proves: [
-    'Concevoir une architecture cloud de bout en bout, pas juste un notebook isolé',
-    'Diagnostiquer et résoudre des pannes IAM/réseau en environnement Azure réel',
-    'Documenter un pipeline pour qu\'une équipe puisse le reprendre sans moi',
+    "Concevoir un pipeline SQL → Power Query → modèle en étoile → DAX, documenté de bout en bout",
+    "Écrire des vues SQL Server (T-SQL) comme couche d'abstraction entre la base et l'outil BI",
+    "Construire un schéma en étoile manuellement et l'exploiter avec des mesures DAX (KPI, variance, YoY)",
   ],
-  links: { github: 'https://github.com/hicham-errihani/gender-sales-dashboard' },
+  links: {
+    github: 'https://github.com/Hicham-Errihani/power-bi-sales-customer-analysis',
+    demo: '',
+  },
+  images: [
+    '/projects/powerbi-sales/exec-summary-page.png',
+    '/projects/powerbi-sales/cust-analysis-page.png',
+    '/projects/powerbi-sales/prod-analysis-page.png',
+    '/projects/powerbi-sales/data-model.png',
+  ],
 }
 
-export const projects = [
-  {
-    slug: 'churn-prediction',
-    name: 'Modèle prédictif de churn client',
-    context:
-      "Anticiper la résiliation d'abonnement à partir de l'historique d'usage, pour prioriser les relances commerciales.",
-    stack: ['Python', 'scikit-learn', 'Pandas', 'XGBoost'],
-    result: 'AUC de 0.87 sur jeu de test ; top 20% des clients à risque capturent 68% des résiliations réelles.',
-  },
-  {
-    slug: 'sales-powerbi',
-    name: 'Dashboard exécutif Ventes & Marketing',
-    context:
-      "Consolidation de sources CRM et publicitaires en un modèle DAX unique, avec sécurité au niveau ligne (RLS) par région.",
-    stack: ['Power BI', 'DAX', 'SQL Server', 'Power Query'],
-    result: 'Temps de reporting mensuel réduit de 3 jours à 20 minutes.',
-  },
-  {
-    slug: 'etl-batch',
-    name: 'Pipeline ETL par lots — données publiques',
-    context:
-      "Automatisation de la collecte, du nettoyage et du chargement de jeux de données publics volumineux pour analyse statistique.",
-    stack: ['Python', 'Airflow', 'PostgreSQL', 'Docker'],
-    result: 'Traitement hebdomadaire de +2M lignes sans intervention manuelle.',
-  },
-]
+export const projects = []
 
 export const skills = {
   eyebrow: 'Compétences',
