@@ -1,4 +1,7 @@
-import { flagshipProject, projects } from '../data/content'
+import { flagshipProject } from '../data/content'
+import { projectsData } from '../data/projects'
+import PipelineDiagram from './PipelineDiagram'
+import ProjectsGrid from './ProjectsGrid'
 
 function ChallengeItem({ title, detail }) {
   return (
@@ -12,12 +15,7 @@ function ChallengeItem({ title, detail }) {
 function Screenshot({ src, alt }) {
   return (
     <div className="overflow-hidden rounded-lg border border-white/10 bg-ink-950/60">
-      <img
-        src={src}
-        alt={alt}
-        className="w-full object-cover transition-transform duration-300 hover:scale-105"
-        loading="lazy"
-      />
+      <img src={src} alt={alt} className="w-full object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
     </div>
   )
 }
@@ -63,11 +61,7 @@ function FlagshipCase() {
               <h4 className="font-mono text-xs uppercase tracking-wider text-slate-500">Aperçu du dashboard</h4>
               <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {p.images.map((src, i) => (
-                  <Screenshot
-                    key={i}
-                    src={src}
-                    alt={`${p.name} – capture ${i + 1}`}
-                  />
+                  <Screenshot key={i} src={src} alt={`${p.name} – capture ${i + 1}`} />
                 ))}
               </div>
             </div>
@@ -95,52 +89,8 @@ function FlagshipCase() {
           ))}
         </ul>
         {p.links && p.links.github && (
-            <a
-            href={p.links.github}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs text-cyan hover:underline"
-          >
+          <a href={p.links.github} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs text-cyan hover:underline">
             Voir le code sur GitHub →
-          </a>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function ProjectCard({ project }) {
-  const cover = project.images && project.images.length > 0 ? project.images[0] : null
-
-  return (
-    <div className="card flex h-full flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1">
-      {cover && (
-        <div className="overflow-hidden border-b border-white/10 bg-ink-950/60">
-          <img
-            src={cover}
-            alt={`${project.name} – aperçu`}
-            className="h-40 w-full object-cover object-top"
-            loading="lazy"
-          />
-        </div>
-      )}
-      <div className="flex flex-1 flex-col p-6">
-        <h4 className="font-display text-lg font-semibold text-white">{project.name}</h4>
-        <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-slate-400">{project.context}</p>
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.stack.map((s) => (
-            <span key={s} className="tag">{s}</span>
-          ))}
-        </div>
-        <p className="mt-4 border-t border-white/5 pt-4 font-body text-sm text-mint">{project.result}</p>
-        {project.links && project.links.github && (
-            <a
-            href={project.links.github}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs text-cyan hover:underline"
-          >
-            Voir sur GitHub →
           </a>
         )}
       </div>
@@ -157,11 +107,11 @@ export default function Projects() {
 
         <FlagshipCase />
 
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
-        </div>
+        {projectsData.length > 0 && (
+          <div className="mt-8">
+            <ProjectsGrid projects={projectsData} />
+          </div>
+        )}
       </div>
     </section>
   )

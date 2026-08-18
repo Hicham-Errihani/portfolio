@@ -84,3 +84,9 @@
     @apply inline-flex items-center rounded-md border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[11px] text-slate-300;
   }
 }
+
+@layer components {
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-mint/40 bg-mint/5 px-6 py-3 font-display text-sm font-semibold text-mint transition-all duration-200 hover:bg-mint/10;
+  }
+}
