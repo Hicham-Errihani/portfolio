@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
 const links = [
-  { id: 'about', label: 'À propos' },
-  { id: 'projects', label: 'Projets' },
-  { id: 'skills', label: 'Compétences' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
   { id: 'certifications', label: 'Certifications' },
-  { id: 'availability', label: 'Disponibilité' },
+  { id: 'availability', label: 'Availability' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -38,7 +38,6 @@ export default function Nav() {
         <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className="font-display text-sm font-semibold text-white">
           H. Errihani<span className="text-cyan">.</span>
         </a>
-
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <li key={l.id}>
@@ -48,12 +47,10 @@ export default function Nav() {
             </li>
           ))}
         </ul>
-
         <button onClick={() => handleClick('contact')} className="hidden rounded-md border border-cyan/30 px-4 py-2 font-display text-sm font-semibold text-cyan transition-colors hover:bg-cyan/10 md:inline-flex">
-          Me contacter
+          Get in Touch
         </button>
-
-        <button aria-label="Ouvrir le menu" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white md:hidden">
+        <button aria-label="Open menu" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white md:hidden">
           <span className="sr-only">Menu</span>
           {open ? (
             <svg width="18" height="18" viewBox="0 0 18 18"><path d="M1 1L17 17M17 1L1 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
@@ -62,7 +59,6 @@ export default function Nav() {
           )}
         </button>
       </nav>
-
       {open && (
         <ul className="border-t border-white/5 bg-ink-950 md:hidden">
           {links.map((l) => (

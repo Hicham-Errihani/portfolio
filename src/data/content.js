@@ -14,17 +14,18 @@ export const profile = {
 }
 
 export const about = {
-  eyebrow: 'À propos',
+  eyebrow: 'About',
+  heading: 'Built on Industrial Rigor, Delivered Through Data',
   paragraphs: [
-    "22 ans dans les Forces Armées Royales m'ont appris une chose : un système mal conçu tombe en panne au pire moment. J'applique la même exigence à la donnée.",
-    "Après GDLS et Leonardo DRS — deux environnements industriels où l'erreur coûte cher — j'ai orienté ma carrière vers la data : Master Génie Informatique & Big Data à l'ENSA Berrechid, puis une dizaine de certifications cloud et data en 18 mois.",
-    "Aujourd'hui Data Scientist/Analyst à l'AUF, je conçois des pipelines Azure de bout en bout et je forme les équipes à les maintenir — parce qu'un pipeline que personne d'autre ne comprend n'est pas un livrable, c'est une dette.",
-    "Basé à Casablanca, mobile sur tout le territoire marocain, disponible en CDI comme en mission freelance.",
+    "Over 18 years analyzing technical and production data in demanding industrial environments — 11 years at GDLS, then 7.5 years at Leonardo DRS as a BI Expert — taught me that reliable systems are non-negotiable. I bring that same standard to every dashboard and pipeline I build.",
+    "At Leonardo DRS, I designed and deployed end-to-end Power BI solutions for industrial production monitoring: Star Schema and Snowflake models, advanced DAX measures, Row-Level Security, and governed workspace deployment — turning raw production data into decisions leadership could act on.",
+    "I complemented that expertise with a Master's in Computer Engineering & Big Data from ENSA Berrechid and certifications across Azure, AWS, Databricks, and Oracle. Today, as a Data Scientist/Analyst at AUF, I design end-to-end Azure pipelines and Power BI dashboards, and train teams to maintain them — because a system nobody else understands isn't a deliverable, it's a liability.",
+    "Based in Casablanca, mobile across Morocco, available for full-time roles as well as freelance missions.",
   ],
   stats: [
-    { value: '22', label: 'ans d\'expérience terrain (Défense + Data)' },
-    { value: '10+', label: 'certifications cloud & data' },
-    { value: '3', label: 'couches Bronze/Silver/Gold maîtrisées de bout en bout' },
+    { value: '18+', label: 'years of analytical experience (industry + data)' },
+    { value: '8+', label: 'years specialized in Business Intelligence (Power BI)' },
+    { value: '10+', label: 'cloud & data certifications' },
   ],
 }
 

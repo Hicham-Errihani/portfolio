@@ -7,7 +7,7 @@ export default function About() {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="section-eyebrow mb-4">{about.eyebrow}</p>
-            <h2 className="text-3xl sm:text-4xl">Du terrain militaire au terrain data</h2>
+             <h2>Built on Industrial Rigor, Delivered Through Data</h2>
 
             <dl className="mt-10 grid grid-cols-3 gap-6">
               {about.stats.map((s) => (
