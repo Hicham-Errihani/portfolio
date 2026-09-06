@@ -31,7 +31,7 @@ export default function ProjectDetail({ project, onBack }) {
     <div className="card overflow-hidden">
       <div className="border-b border-white/10 bg-white/[0.02] p-8 sm:p-10">
         <button onClick={onBack} className="mb-6 inline-flex items-center gap-1.5 font-mono text-xs text-slate-400 transition-colors hover:text-cyan">
-          ← Retour aux projets
+          ← Retour aux PROJECTS
         </button>
         <p className="section-eyebrow mb-3">Étude de cas</p>
         <h3 className="text-2xl sm:text-3xl">{p.title}</h3>
@@ -133,7 +133,7 @@ export default function ProjectDetail({ project, onBack }) {
 
       <div className="border-t border-white/10 p-8 sm:p-10">
         <button onClick={onBack} className="btn-secondary">
-          ← Retour à la liste des projets
+          ← Retour à la liste des PROJECTS
         </button>
       </div>
     </div>

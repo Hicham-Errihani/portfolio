@@ -9,11 +9,11 @@ export default function ProjectsGrid({ projects, onSelect }) {
 
   const categories = useMemo(() => {
     const unique = Array.from(new Set(projects.map((p) => p.category)))
-    return ['Tous', ...unique]
+    return ['Tous', unique]
   }, [projects])
 
   const sorted = useMemo(
-    () => [...projects].sort((a, b) => (b.date || '').localeCompare(a.date || '')),
+    () => [projects].sort((a, b) => (b.date || '').localeCompare(a.date || '')),
     [projects]
   )
 
@@ -61,7 +61,7 @@ export default function ProjectsGrid({ projects, onSelect }) {
       {hasMore && (
         <div className="mt-8 flex justify-center">
           <button onClick={() => setVisibleCount((v) => v + PAGE_SIZE)} className="btn-secondary">
-            Voir plus de projets
+            Voir plus de PROJECTS
           </button>
         </div>
       )}

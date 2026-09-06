@@ -5,7 +5,7 @@ export default function Certifications() {
     <section id="certifications" className="border-t border-white/5 py-24">
       <div className="container-px mx-auto max-w-6xl">
         <p className="section-eyebrow mb-4">Certifications</p>
-        <h2 className="mb-12 text-3xl sm:text-4xl">Validées, pas juste listées</h2>
+        <h2 className="mb-12 text-3xl sm:text-4xl">Validated, Not Just Listed</h2>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {certifications.map((cert) => (

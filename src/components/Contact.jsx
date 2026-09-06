@@ -5,11 +5,11 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = (e) => setForm({ form, [e.target.name]: e.target.value })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`Contact portfolio — ${form.name || 'sans nom'}`)
+    const subject = encodeURIComponent(`Contact portfolio — ${form.name || 'sans NAME'}`)
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
     window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
     setSent(true)
@@ -21,9 +21,9 @@ export default function Contact() {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="section-eyebrow mb-4">Contact</p>
-            <h2 className="text-3xl sm:text-4xl">Parlons de votre projet</h2>
+            <h2 className="text-3xl sm:text-4xl">Let's talk about your project</h2>
             <p className="mt-4 max-w-md font-body text-slate-400">
-              Une question, un poste à pourvoir, une mission à cadrer — je réponds sous 48h.
+              A question, a position to fill, a mission to define — I reply within 48 hours.
             </p>
 
             <ul className="mt-8 space-y-3 font-mono text-sm">
@@ -48,7 +48,7 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="card space-y-5 p-8">
             <div>
               <label htmlFor="name" className="mb-1.5 block font-mono text-xs uppercase tracking-wider text-slate-500">
-                Nom
+                NAME
               </label>
               <input
                 id="name"
@@ -57,7 +57,7 @@ export default function Contact() {
                 value={form.name}
                 onChange={handleChange}
                 className="w-full rounded-lg border border-white/10 bg-ink-950/60 px-4 py-3 font-body text-sm text-white outline-none transition-colors focus:border-cyan/50"
-                placeholder="Votre nom"
+                placeholder="Votre NAME"
               />
             </div>
             <div>
@@ -72,7 +72,7 @@ export default function Contact() {
                 value={form.email}
                 onChange={handleChange}
                 className="w-full rounded-lg border border-white/10 bg-ink-950/60 px-4 py-3 font-body text-sm text-white outline-none transition-colors focus:border-cyan/50"
-                placeholder="vous@exemple.com"
+                placeholder="you@example.com"
               />
             </div>
             <div>
@@ -87,11 +87,11 @@ export default function Contact() {
                 value={form.message}
                 onChange={handleChange}
                 className="w-full resize-none rounded-lg border border-white/10 bg-ink-950/60 px-4 py-3 font-body text-sm text-white outline-none transition-colors focus:border-cyan/50"
-                placeholder="Décrivez le poste ou la mission…"
+                placeholder="Describe the role or the mission …"
               />
             </div>
             <button type="submit" className="btn-primary w-full">
-              Envoyer le message
+              Send message
             </button>
             {sent && (
               <p className="font-body text-xs text-mint" role="status">

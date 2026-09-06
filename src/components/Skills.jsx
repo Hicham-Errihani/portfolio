@@ -5,7 +5,7 @@ export default function Skills() {
     <section id="skills" className="border-t border-white/5 py-24">
       <div className="container-px mx-auto max-w-6xl">
         <p className="section-eyebrow mb-4">{skills.eyebrow}</p>
-        <h2 className="mb-12 text-3xl sm:text-4xl">Boîte à outils</h2>
+        <h2 className="mb-12 text-3xl sm:text-4xl">My Toolbox</h2>
 
         <div className="grid gap-6 md:grid-cols-3">
           {skills.groups.map((g) => (
